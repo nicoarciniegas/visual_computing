@@ -22,10 +22,10 @@ La esfera comienza rotando y desplazándose en un patrón circular sobre el plan
 - `D`: Girar la cámara 90° a la derecha
 
 ## 🖥️ Cómo usar el proyecto
-1. Abre el proyecto en Unity (versión recomendada: 2021.3 o superior)
-2. Asegúrate de que los scripts `Movement.cs` y `camRotation.cs` estén asignados correctamente a sus respectivos objetos
-3. Ejecuta la escena desde el editor
-4. Observa el comportamiento de la esfera y prueba rotar la cámara con A y D
+- Abre el proyecto en Unity (versión recomendada: 2021.3 o superior)
+-  Asegúrate de que los scripts `Movement.cs` y `camRotation.cs` estén asignados correctamente a sus respectivos objetos
+- Ejecuta la escena desde el editor
+- Observa el comportamiento de la esfera y prueba rotar la cámara con A y D
 
 ## 📸 Capturas o GIFs
 - ![Taller1_Unity](https://github.com/user-attachments/assets/52299d05-036f-4eb8-bb62-901f5315db0d)
