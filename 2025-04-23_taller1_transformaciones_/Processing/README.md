@@ -26,5 +26,5 @@ Este proyecto en Processing genera una animación suave de una elipse que rota, 
 2. Haz clic en **Run ▶️** para iniciar la animación.
 3. Observa cómo la elipse rota, se escala y se desplaza con suavidad.
 
-## 📸 Vista previa (opcional)
+## 📸 Vista previa
 ![Taller1_Processing](https://github.com/user-attachments/assets/11a79830-8999-483e-93de-eb7db841d828)
