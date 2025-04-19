@@ -2,10 +2,10 @@
 Este proyecto es una demostración interactiva de un cubo 3D que puede trasladarse, rotar y escalar usando Three.js integrado en una aplicación React.
 
 🛠️ Tecnologías
-1) React
-2)Three.js
-3)react-three-fiber
-4)react-three/drei
+- React
+- Three.js
+- react-three-fiber
+- react-three/drei
 
 ✨ Funcionalidades
 🌀 Rotación continua del cubo
