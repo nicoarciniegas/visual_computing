@@ -1,12 +1,31 @@
-# React + Vite
+🧊 Cubo Interactivo con Three.js y React
+Este proyecto es una demostración interactiva de un cubo 3D que puede trasladarse, rotar y escalar usando Three.js integrado en una aplicación React.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🛠️ Tecnologías
+1) React
+2)Three.js
+3)react-three-fiber
+4)react-three/drei
 
-Currently, two official plugins are available:
+✨ Funcionalidades
+🌀 Rotación continua del cubo
+↔️ Traslación dinámica
+🔎 Escalado 
+📱 Responsive y compatible con distintos dispositivos
+🎮 Control de cámara o interacción con mouse 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+📦 Instalación
+git clone [https://github.com/tu-usuario/tu-repo.git](https://github.com/nicoarciniegas/visual_computing.git)
+cd "la ubicacion donde clonaste tu repositorio"/Threejs
+npm install
+npm start
 
-## Expanding the ESLint configuration
+🧠 Cómo funciona
+Este proyecto utiliza react-three-fiber, una herramienta que integra Three.js con React, para crear una animación 3D interactiva.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+El cubo se mueve en un patrón circular sobre el plano horizontal, mientras gira constantemente sobre su eje vertical (Eje Y). Además, cambia de tamaño suavemente, generando un efecto visual de pulsación. Todo esto se actualiza cuadro a cuadro, creando una animación continua y fluida.
+
+La escena también incluye controles de cámara que permiten al usuario girar, acercar y alejar la vista del cubo, haciendo la experiencia más interactiva.
+
+📸 Gif
+![taller1_Three js](https://github.com/user-attachments/assets/ccbbf411-e170-4147-970c-5e0f28ddfa88)
