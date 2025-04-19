@@ -1,32 +1,32 @@
-🧊 Cubo Interactivo con Three.js y React
-Este proyecto es una demostración interactiva de un cubo 3D que puede trasladarse, rotar y escalar usando Three.js integrado en una aplicación React.
+# 🟣 Esfera Interactiva en Movimiento con Unity
 
-🛠️ Tecnologías
-- React
-- Three.js
-- react-three-fiber
-- react-three/drei
+Este proyecto es una simulación animada en Unity donde una esfera se desplaza en círculos, rota en dos ejes y modifica dinámicamente su tamaño. Además, se incluye una cámara que puede rotar en incrementos de 90° con solo presionar las teclas `A` o `D`, permitiendo observar la escena desde diferentes ángulos.
 
+## 🛠️ Tecnologías
+- Unity (motor de desarrollo)
+- C# (scripting)
+- Editor de entrada de teclado para control de cámara
 
-✨ Funcionalidades
-- 🌀 Rotación continua del cubo
-- ↔️ Traslación dinámica
-- 🔎 Escalado 
-- 📱 Responsive
-- 🎮 Control de cámara con interacción con mouse 
+## ✨ Funcionalidades
+- 🔄 Movimiento circular continuo de la esfera
+- 🌀 Rotación simultánea sobre los ejes X e Y
+- 🔍 Cambios dinámicos de escala una vez completado el movimiento
+- ⏱️ Simulación con duración controlada
+- 🎮 Rotación de cámara con teclas `A` y `D`
 
-📦 Instalación
-- git clone [https://github.com/tu-usuario/tu-repo.git](https://github.com/nicoarciniegas/visual_computing.git)
-- cd "la ubicacion donde clonaste tu repositorio"/Threejs
-- npm install
-- npm start
+## 🎯 Comportamiento general
+La esfera comienza rotando y desplazándose en un patrón circular sobre el plano XZ. Durante los primeros segundos, se mueve en círculos mientras rota de forma constante sobre dos ejes. Una vez finalizado este ciclo de movimiento (tras un tiempo definido), la esfera se detiene en una posición específica y comienza a oscilar su tamaño de forma rítmica, creando un efecto visual de respiración o pulsación.
 
-🧠 Cómo funciona
-Este proyecto utiliza react-three-fiber, una herramienta que integra Three.js con React, para crear una animación 3D interactiva.
+## 🎮 Controles
+- `A`: Girar la cámara 90° a la izquierda
+- `D`: Girar la cámara 90° a la derecha
 
-El cubo se mueve en un patrón circular sobre el plano horizontal, mientras gira constantemente sobre su eje vertical (Eje Y). Además, cambia de tamaño suavemente, generando un efecto visual de pulsación. Todo esto se actualiza cuadro a cuadro, creando una animación continua y fluida.
+## 🖥️ Cómo usar el proyecto
+1. Abre el proyecto en Unity (versión recomendada: 2021.3 o superior)
+2. Asegúrate de que los scripts `Movement.cs` y `camRotation.cs` estén asignados correctamente a sus respectivos objetos
+3. Ejecuta la escena desde el editor
+4. Observa el comportamiento de la esfera y prueba rotar la cámara con A y D
 
-La escena también incluye controles de cámara que permiten al usuario girar, acercar y alejar la vista del cubo, haciendo la experiencia más interactiva.
+## 📸 Capturas o GIFs
+- ![Taller1_Unity](https://github.com/user-attachments/assets/52299d05-036f-4eb8-bb62-901f5315db0d)
 
-📸 Gif
-- ![taller1_Three js](https://github.com/user-attachments/assets/ccbbf411-e170-4147-970c-5e0f28ddfa88)
