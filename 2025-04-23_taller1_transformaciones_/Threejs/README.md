@@ -11,8 +11,8 @@ Este proyecto es una demostración interactiva de un cubo 3D que puede trasladar
 🌀 Rotación continua del cubo
 ↔️ Traslación dinámica
 🔎 Escalado 
-📱 Responsive y compatible con distintos dispositivos
-🎮 Control de cámara o interacción con mouse 
+📱 Responsive
+🎮 Control de cámara con interacción con mouse 
 
 📦 Instalación
 git clone [https://github.com/tu-usuario/tu-repo.git](https://github.com/nicoarciniegas/visual_computing.git)
