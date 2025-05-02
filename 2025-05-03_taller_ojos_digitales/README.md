@@ -29,6 +29,10 @@ En este taller se implemento la aplicacion de filtros convulcionales (Blur y Sha
     sobel_y = cv2.Sobel(img_gray_np, cv2.CV_64F, 0, 1, ksize=3)  # Sobel en Y
 
     laplacian = cv2.Laplacian(img_gray_np, cv2.CV_64F, ksize=31)
+    
+### ✅ Descripción general de los prompts usados (si aplican).
+link chat: https://chatgpt.com/share/68144eaf-7fd4-800a-b772-7b3f6b034457
+Se realizó los prompts para ayuda en la carga de la imagen implementacion de filtros, manejo de kernels y deteccion de bordes
 
 ### Comentarios personales sobre el aprendizaje y dificultades encontradas.
 
