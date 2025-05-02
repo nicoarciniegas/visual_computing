@@ -3,17 +3,17 @@
 En este taller se implemento la aplicacion de filtros convulcionales (Blur y Sharpening) interactuando con los diferentes kernels en distintos tamaños. Además se realizó la deteccion de bordes con los filtros Sobel y el filtro Laplaciano
 
 ### 📸 Capturas o GIFs
-- Imagen a color y Escala en grises
-    ![descarga](https://github.com/user-attachments/assets/2fa19ae0-d2c5-40ee-b290-7d6e14003761)
+#### Imagen a color y Escala en grises
+![descarga](https://github.com/user-attachments/assets/2fa19ae0-d2c5-40ee-b290-7d6e14003761)
 
-- Filtro Blur y Sharpening aplicado
-    ![descarga (1)](https://github.com/user-attachments/assets/ef451cc2-f23d-471f-838a-5142f3e842d4)
+#### Filtro Blur y Sharpening aplicado
+![descarga (1)](https://github.com/user-attachments/assets/ef451cc2-f23d-471f-838a-5142f3e842d4)
 
-- Imagen a color, Sobel en X, Sobel en Y, Magnitud de los bordes
-    ![descarga (2)](https://github.com/user-attachments/assets/e3face7a-d279-435d-95cb-1691aafee737)
+#### Imagen a color, Sobel en X, Sobel en Y, Magnitud de los bordes
+![descarga (2)](https://github.com/user-attachments/assets/e3face7a-d279-435d-95cb-1691aafee737)
 
-- Escala de grises y filtro Laplaciano
-    ![descarga (3)](https://github.com/user-attachments/assets/5fa0cb1e-6396-4ee6-83e2-ee536baf3a77)
+#### Escala de grises y filtro Laplaciano
+![descarga (3)](https://github.com/user-attachments/assets/5fa0cb1e-6396-4ee6-83e2-ee536baf3a77)
 
 
 ### 🎯 Codigo Relevante
