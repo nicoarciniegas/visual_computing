@@ -1,6 +1,6 @@
-# Taller Imagen Matriz Pixeles
+# Taller Analisis de Figuras Geometricas
 
-En este taller se trabajó con procesamiento de imágenes utilizando OpenCV en Google Colab. Se comenzó cargando una imagen en color y visualizando sus canales RGB y HSV por separado. Luego, se modificaron regiones específicas de la imagen mediante slicing, cambiando colores y sustituyendo áreas. Se calculó y graficó el histograma de intensidades en escala de grises y por canal de color para analizar la distribución tonal. Finalmente, se aplicaron ajustes manuales de brillo y contraste usando una ecuación lineal, visualizando los efectos de manera comparativa.
+En este taller se trabajó con procesamiento de imágenes usando OpenCV en Google Colab. Se comenzó cargando una imagen y binarizándola para facilitar la detección de contornos. Luego, se utilizaron funciones como cv2.findContours() para identificar las figuras presentes, y se calcularon propiedades geométricas clave como área, perímetro y centroide para cada contorno. Finalmente, se dibujaron los contornos individualmente y en conjunto sobre la imagen original, y se etiquetaron con sus métricas, enfocándonos específicamente en mostrar detalladamente las figuras número 4, 8 y 9, debido a que las demas eran irrelevantes en la construccion de la imagen original.
 
 ### 📸 Capturas o GIFs
 ![Untitled ‑ Made with FlexClip](https://github.com/user-attachments/assets/14332098-61b8-489e-b21c-af82f6355e0c)
