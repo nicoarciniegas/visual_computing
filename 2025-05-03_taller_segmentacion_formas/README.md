@@ -1,39 +1,47 @@
-# Taller de Ojos Digitales
+# Taller de Segmentacion de formas
 
-En este taller se implemento la aplicacion de filtros convulcionales (Blur y Sharpening) interactuando con los diferentes kernels en distintos tamaños. Además se realizó la deteccion de bordes con los filtros Sobel y el filtro Laplaciano
+Se realizó la segmentación binaria mediante umbral fijo y umbral adaptativo, facilitando la separación de objetos del fondo. A partir de la imagen binaria, se detectaron los contornos usando cv2.findContours(), y sobre la imagen original se visualizaron los contornos, los centros de masa de cada forma calculados con cv2.moments(), y los rectángulos delimitadores (bounding boxes) con cv2.boundingRect(). Finalmente, todos estos elementos fueron dibujados sobre la imagen original para facilitar su análisis visual.
 
 ### 📸 Capturas o GIFs
-#### Imagen a color y Escala en grises
-![descarga](https://github.com/user-attachments/assets/2fa19ae0-d2c5-40ee-b290-7d6e14003761)
-
-#### Filtro Blur y Sharpening aplicado
-![descarga (1)](https://github.com/user-attachments/assets/ef451cc2-f23d-471f-838a-5142f3e842d4)
-
-#### Imagen a color, Sobel en X, Sobel en Y, Magnitud de los bordes
-![descarga (2)](https://github.com/user-attachments/assets/e3face7a-d279-435d-95cb-1691aafee737)
-
-#### Escala de grises y filtro Laplaciano
-![descarga (3)](https://github.com/user-attachments/assets/5fa0cb1e-6396-4ee6-83e2-ee536baf3a77)
+![Untitled ‑ Made with FlexClip](https://github.com/user-attachments/assets/c5ce7ccc-7cd1-4f8e-8dbc-0effd348bb25)
 
 
 ### 🎯 Codigo Relevante
 
-    blurred = cv2.GaussianBlur(img_gray_np, (35, 35), 0) filtro blur (desenfoque) usando una convolución con un kernel 35x35 (para mayor desenfoque)
+    umbral = 165
+    _, img_binaria = cv2.threshold(img_np, umbral, 255, cv2.THRESH_BINARY) # Aplicar umbral fijo
+
+    img_adaptativa = cv2.adaptiveThreshold(
+    img_np,                  # imagen en escala de grises
+    255,                     # valor máximo a asignar si cumple condición
+    cv2.ADAPTIVE_THRESH_MEAN_C,  # método (puedes probar también GAUSSIAN_C)
+    cv2.THRESH_BINARY,       # tipo de umbralización
+    15,                      # tamaño del bloque (debe ser impar)
+    2                        # constante que se resta del promedio
+    )
     
-  
-    sharpen_kernel = np.array([[ -1, -1,  -1], # Kernel de sharpening (enfoque)
-                               [-1,  9, -1],
-                               [ -1, -1,  -1]])
+    # Detectar contornos
+    contornos, _ = cv2.findContours(img_redimensionada, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    
+    # Calcular centro de masa (usando imagen binaria como máscara booleana)
+    centro_masa = center_of_mass(img_redimensionada > 0)
 
-    sobel_x = cv2.Sobel(img_gray_np, cv2.CV_64F, 1, 0, ksize=3)  # Sobel en X
-    sobel_y = cv2.Sobel(img_gray_np, cv2.CV_64F, 0, 1, ksize=3)  # Sobel en Y
+    img_contorno = cv2.cvtColor(img_binaria, cv2.COLOR_GRAY2BGR)  # Convertir a BGR para dibujar en color
+    cv2.drawContours(img_contorno, contornos, -1, (0, 255, 0), 2)  # Dibuja todos los contornos en verde
 
-    laplacian = cv2.Laplacian(img_gray_np, cv2.CV_64F, ksize=31)
+    # Dibujar centro de masa (círculo rojo)
+    ax.plot(centro_masa[1], centro_masa[0], 'ro', markersize=6)
+    
+    # Dibujar bounding boxes
+    for contorno in contornos:
+        x, y, w, h = cv2.boundingRect(contorno)
+        rect = plt.Rectangle((x, y), w, h, edgecolor='lime', facecolor='none', linewidth=1.5)
+        ax.add_patch(rect)
     
 ### ✅ Descripción general de los prompts usados (si aplican).
-link chat: https://chatgpt.com/share/68144eaf-7fd4-800a-b772-7b3f6b034457
-Se realizó los prompts para ayuda en la carga de la imagen implementacion de filtros, manejo de kernels y deteccion de bordes
+[link chat: https://chatgpt.com/share/68144eaf-7fd4-800a-b772-7b3f6b034457](https://chatgpt.com/share/6814f58d-2170-800a-84e2-3ae71c637a9c)
+Se realizó los prompts para ayuda en implementacion de segmentaciones, manejo de contornos y deteccion de centro de masa y bounding boxes
 
 ### Comentarios personales sobre el aprendizaje y dificultades encontradas.
 
-Al poder interactuar con los diferentes kernel y como eso afecta de distintas maneras la imagen es cuando uno correlaciona su fincionamiento y que es lo que hace realmente con los pixeles de la imagen
+Para hallar el centro de masa tuve que investigar mas a fondo en foros e incluso incluir la libreria  from scipy.ndimage import center_of_mass
