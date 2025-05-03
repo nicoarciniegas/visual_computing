@@ -1,162 +1,51 @@
-# Taller de Jerarquías y Transformaciones
+# Taller convoluciones personalizadas
 
-## Three.Js
+## Python
 
-A través de los controles Leva se pudo controlar la velocidad de rotacion, posicion en X y Z. De esta manera atribuyendole estas caracteristicas al padre pudimos visualizar el comportamiento de los hijos.
+En este laboratorio se cargó una imagen y se convirtió a escala de grises para aplicar convoluciones 2D manuales utilizando NumPy, implementando desde cero una función que recorre píxel por píxel y aplica distintos kernels. Se diseñaron y probaron tres tipos de filtros: uno de enfoque (sharpen) para realzar detalles, otro de suavizado (blur) para reducir ruido, y un tercero de detección de bordes/esquinas basado en la combinación de derivadas de Sobel. Posteriormente, se compararon visualmente los resultados obtenidos con la implementación manual frente a los generados usando la función cv2.filter2D() de OpenCV.
 
 ### 📸 Capturas o GIFs
-![2025-05-01 19-00-36](https://github.com/user-attachments/assets/553c4399-4f07-47b8-8275-9cca3156a85e)
+![Untitled ‑ Made with FlexClip](https://github.com/user-attachments/assets/b84a8b8f-cb68-4ec9-9987-f149792d4f03)
 
 ### 🎯 Codigo Relevante
 
-    import './App.css'
-    import { Canvas, useFrame } from '@react-three/fiber'
-    import { OrbitControls } from '@react-three/drei'
-    import { useRef } from 'react'
-    import { Leva, useControls } from 'leva'
+    # 1. Kernel de Enfoque (Sharpen) 
+    kernel_sharpen = np.array([
+        [ 0, -1,  0],
+        [-1,  5, -1],
+        [ 0, -1,  0]
+    ], dtype=np.float32)
     
-    function AnimatedGroup() {
-      const groupRef = useRef()
-      const childGroupRef = useRef()
+    # 2. Kernel de Suavizado (Blur Promedio) 
+    kernel_blur = np.ones((3, 3), dtype=np.float32) / 9.0
     
-      // Controles de Leva
-      const { rotationSpeed, positionX, positionZ } = useControls({
-        rotationSpeed: { value: 0.03, min: 0, max: 0.1, step: 0.01 },
-        positionX: { value: 0, min: -5, max: 5, step: 0.1 },
-        positionZ: { value: 0, min: -5, max: 5, step: 0.1 },
-      })
+    # 3. Detección de esquinas (combinación de Sobel X e Y) 
+    kernel_sobel_x = np.array([
+        [-1, 0, 1],
+        [-2, 0, 2],
+        [-1, 0, 1]
+    ], dtype=np.float32)
     
-      useFrame(({ clock }) => {
-        const t = clock.getElapsedTime()
-        // Movimiento circular del grupo principal
-        groupRef.current.position.x = positionX + Math.sin(t) * 2
-        groupRef.current.position.z = positionZ + Math.cos(t) * 2
-        groupRef.current.rotation.y += rotationSpeed
-    
-        // Rotación adicional para el grupo hijo
-        if (childGroupRef.current) {
-          childGroupRef.current.rotation.x += 0.02
-          childGroupRef.current.rotation.z += 0.02
-        }
-      })
-    
-      return (
-        <group ref={groupRef}>
-          {/* Hijo 1 */}
-          <mesh position={[-1.5, 0, 0]}>
-            <boxGeometry args={[1, 1, 1]} />
-            <meshNormalMaterial />
-          </mesh>
-          {/* Hijo 2 */}
-          <group ref={childGroupRef} position={[1.5, 0, 0]}>
-            <mesh>
-              <sphereGeometry args={[0.5, 20, 20]} />
-              <meshStandardMaterial color="orange" />
-            </mesh>
-            {/* Hijo de la esfera */}
-            <mesh position={[0, 1, 0]}>
-              <torusGeometry args={[0.3, 0.1, 16, 100]} />
-              <meshStandardMaterial color="green" />
-            </mesh>
-          </group>
-          {/* Hijo 3 */}
-          <mesh position={[0, 1.5, 2]}>
-            <coneGeometry args={[0.5, 1, 32]} />
-            <meshStandardMaterial color="blue" />
-          </mesh>
-        </group>
-      )
-    }
-    
-    function App() {
-      return (
-        <>
-          <h1>3D NIKO</h1>
-          <Leva collapsed />
-          <div className="canvas-container">
-            <Canvas>
-              <ambientLight intensity={0.5} />
-              <pointLight position={[10, 10, 10]} />
-              <AnimatedGroup />
-              <OrbitControls />
-            </Canvas>
-          </div>
-        </>
-      )
-    }
-    
-    export default App
+    kernel_sobel_y = np.array([
+        [-1, -2, -1],
+        [ 0,  0,  0],
+        [ 1,  2,  1]
+    ], dtype=np.float32)
 
+    # Aplicación manual
+    img_sharpen_manual = aplicar_convolucion(img_gray, kernel_sharpen)
+    img_blur_manual = aplicar_convolucion(img_gray, kernel_blur)
+    grad_x = aplicar_convolucion(img_gray, kernel_sobel_x)
+    grad_y = aplicar_convolucion(img_gray, kernel_sobel_y)
+    img_sobel_manual = np.sqrt(grad_x**2 + grad_y**2)
+    
+    # Aplicación con OpenCV 
+    img_sharpen_cv = cv2.filter2D(img_gray, ddepth=cv2.CV_32F, kernel=kernel_sharpen)
+    img_blur_cv = cv2.filter2D(img_gray, ddepth=cv2.CV_32F, kernel=kernel_blur)
+    grad_x_cv = cv2.filter2D(img_gray, ddepth=cv2.CV_32F, kernel=kernel_sobel_x)
+    grad_y_cv = cv2.filter2D(img_gray, ddepth=cv2.CV_32F, kernel=kernel_sobel_y)
+    img_sobel_cv = np.sqrt(grad_x_cv**2 + grad_y_cv**2)
+       
 ### Comentarios personales sobre el aprendizaje y dificultades encontradas.
 
-Muy didáctica la manera en que de poco en poco con el taller anterior vamos aprendiendo nociones basicas de esta libreria
-
-## Unity
-
-Este script permite al usuario modificar la posición en X, la rotación en Y, y la escala en Z de un objeto 3D llamado "Father" usando sliders en una interfaz UI. Cada vez que se modifica un slider, los nuevos valores del objeto se muestran en la consola de Unity usando Debug.Log.
-
-### 📸 Capturas o GIFs
-![2025-05-01 21-54-23](https://github.com/user-attachments/assets/c27bbdb6-d49c-4d1d-a578-3704c3555f48)
-
-### 🎯 Codigo Relevante
-
-    using UnityEngine;
-    using UnityEngine.UI;
-
-    public class FatherTransformControl : MonoBehaviour
-    {
-    public Transform father;
-
-    public Slider sliderPosX;
-    public Slider sliderRotY;
-    public Slider sliderScaleZ;
-
-    void Start()
-    {
-        // Inicializa sliders
-        sliderPosX.value = father.localPosition.x;
-        sliderRotY.value = father.localEulerAngles.y;
-        sliderScaleZ.value = father.localScale.z;
-
-        // Listeners
-        sliderPosX.onValueChanged.AddListener((v) => UpdatePosition());
-        sliderRotY.onValueChanged.AddListener((v) => UpdateRotation());
-        sliderScaleZ.onValueChanged.AddListener((v) => UpdateScale());
-
-        // Mostrar valores iniciales
-        LogTransform("Inicial");
-    }
-
-    void UpdatePosition()
-    {
-        Vector3 pos = father.localPosition;
-        pos.x = sliderPosX.value;
-        father.localPosition = pos;
-        LogTransform("Posición actualizada");
-    }
-
-    void UpdateRotation()
-    {
-        Vector3 rot = father.localEulerAngles;
-        rot.y = sliderRotY.value;
-        father.localEulerAngles = rot;
-        LogTransform("Rotación actualizada");
-    }
-
-    void UpdateScale()
-    {
-        Vector3 scale = father.localScale;
-        scale.z = sliderScaleZ.value;
-        father.localScale = scale;
-        LogTransform("Escala actualizada");
-    }
-
-    void LogTransform(string evento)
-    {
-        Debug.Log($"[{evento}] Pos: {father.localPosition}, Rot: {father.localEulerAngles}, Scale: {father.localScale}");
-    }
-    }
-
-### Comentarios personales sobre el aprendizaje y dificultades encontradas.
-
-Es una buena introduccion a sistemas mas complejos de jerarquía en Unity
+Al compararse visualmente los resultados obtenidos con la implementación manual frente a los generados usando la función cv2.filter2D() de OpenCV. observando que ambos métodos producen resultados similares aunque OpenCV es más eficiente computacionalmente. Esta comparación permitió comprender mejor el funcionamiento interno de los filtros y el procesamiento de imágenes.
