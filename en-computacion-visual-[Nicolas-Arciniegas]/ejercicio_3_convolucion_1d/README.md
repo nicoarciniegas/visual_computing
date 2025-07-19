@@ -1,162 +1,42 @@
-# Taller de Jerarquías y Transformaciones
+# Ejercicio 3: Convolución Unidimensional en Python
 
-## Three.Js
-
-A través de los controles Leva se pudo controlar la velocidad de rotacion, posicion en X y Z. De esta manera atribuyendole estas caracteristicas al padre pudimos visualizar el comportamiento de los hijos.
+## Python
+En este taller se implementó manualmente una convolución 1D aplicando un *kernel* de tamaño 3 a una señal de entrada. Se utilizó un método de padding por reflexión para conservar la longitud de la señal y se calcularon los valores resultantes aplicando el producto punto entre el kernel y segmentos de la señal. Finalmente, se visualizaron mediante gráficos los tres elementos clave: la señal original, el kernel y el resultado de la convolución, lo que permite analizar cómo el filtro modifica la señal.
 
 ### 📸 Capturas o GIFs
-![2025-05-01 19-00-36](https://github.com/user-attachments/assets/553c4399-4f07-47b8-8275-9cca3156a85e)
+- Señal Original
+- <img width="379" height="386" alt="señal_original" src="https://github.com/user-attachments/assets/5efea9bb-f659-42be-bf5f-5f61d8559158" />
+
+- Kernel
+- <img width="403" height="390" alt="kernel" src="https://github.com/user-attachments/assets/f2191c10-9ebd-457f-827e-68ae69bf0e0f" />
+
+- Resultado
+- <img width="381" height="395" alt="Resultado" src="https://github.com/user-attachments/assets/132804ad-113c-40b9-8b00-231e756e0c8e" />
 
 ### 🎯 Codigo Relevante
 
-    import './App.css'
-    import { Canvas, useFrame } from '@react-three/fiber'
-    import { OrbitControls } from '@react-three/drei'
-    import { useRef } from 'react'
-    import { Leva, useControls } from 'leva'
+    # Señal de entrada 
+    signal = [2, 4, 6, 8, 10, 9, 7, 5, 3, 1]
     
-    function AnimatedGroup() {
-      const groupRef = useRef()
-      const childGroupRef = useRef()
+    # Kernel de tamaño 3 
+    kernel = [1, 0, -1]
     
-      // Controles de Leva
-      const { rotationSpeed, positionX, positionZ } = useControls({
-        rotationSpeed: { value: 0.03, min: 0, max: 0.1, step: 0.01 },
-        positionX: { value: 0, min: -5, max: 5, step: 0.1 },
-        positionZ: { value: 0, min: -5, max: 5, step: 0.1 },
-      })
+    def convolve1d(signal, kernel):
+        k_len = len(kernel)
+        s_len = len(signal)
+        pad = k_len // 2
     
-      useFrame(({ clock }) => {
-        const t = clock.getElapsedTime()
-        // Movimiento circular del grupo principal
-        groupRef.current.position.x = positionX + Math.sin(t) * 2
-        groupRef.current.position.z = positionZ + Math.cos(t) * 2
-        groupRef.current.rotation.y += rotationSpeed
+        # Reflejamos los bordes para padding (modo 'reflect')
+        padded_signal = ([signal[pad - i] for i in range(pad)][::-1] +
+                         signal +
+                         [signal[-(i+1)] for i in range(pad)])
     
-        // Rotación adicional para el grupo hijo
-        if (childGroupRef.current) {
-          childGroupRef.current.rotation.x += 0.02
-          childGroupRef.current.rotation.z += 0.02
-        }
-      })
+        result = []
+        for i in range(s_len):
+            acc = 0
+            for j in range(k_len):
+                acc += padded_signal[i + j] * kernel[j]
+            result.append(acc)
+        return result
     
-      return (
-        <group ref={groupRef}>
-          {/* Hijo 1 */}
-          <mesh position={[-1.5, 0, 0]}>
-            <boxGeometry args={[1, 1, 1]} />
-            <meshNormalMaterial />
-          </mesh>
-          {/* Hijo 2 */}
-          <group ref={childGroupRef} position={[1.5, 0, 0]}>
-            <mesh>
-              <sphereGeometry args={[0.5, 20, 20]} />
-              <meshStandardMaterial color="orange" />
-            </mesh>
-            {/* Hijo de la esfera */}
-            <mesh position={[0, 1, 0]}>
-              <torusGeometry args={[0.3, 0.1, 16, 100]} />
-              <meshStandardMaterial color="green" />
-            </mesh>
-          </group>
-          {/* Hijo 3 */}
-          <mesh position={[0, 1.5, 2]}>
-            <coneGeometry args={[0.5, 1, 32]} />
-            <meshStandardMaterial color="blue" />
-          </mesh>
-        </group>
-      )
-    }
-    
-    function App() {
-      return (
-        <>
-          <h1>3D NIKO</h1>
-          <Leva collapsed />
-          <div className="canvas-container">
-            <Canvas>
-              <ambientLight intensity={0.5} />
-              <pointLight position={[10, 10, 10]} />
-              <AnimatedGroup />
-              <OrbitControls />
-            </Canvas>
-          </div>
-        </>
-      )
-    }
-    
-    export default App
 
-### Comentarios personales sobre el aprendizaje y dificultades encontradas.
-
-Muy didáctica la manera en que de poco en poco con el taller anterior vamos aprendiendo nociones basicas de esta libreria
-
-## Unity
-
-Este script permite al usuario modificar la posición en X, la rotación en Y, y la escala en Z de un objeto 3D llamado "Father" usando sliders en una interfaz UI. Cada vez que se modifica un slider, los nuevos valores del objeto se muestran en la consola de Unity usando Debug.Log.
-
-### 📸 Capturas o GIFs
-![2025-05-01 21-54-23](https://github.com/user-attachments/assets/c27bbdb6-d49c-4d1d-a578-3704c3555f48)
-
-### 🎯 Codigo Relevante
-
-    using UnityEngine;
-    using UnityEngine.UI;
-
-    public class FatherTransformControl : MonoBehaviour
-    {
-    public Transform father;
-
-    public Slider sliderPosX;
-    public Slider sliderRotY;
-    public Slider sliderScaleZ;
-
-    void Start()
-    {
-        // Inicializa sliders
-        sliderPosX.value = father.localPosition.x;
-        sliderRotY.value = father.localEulerAngles.y;
-        sliderScaleZ.value = father.localScale.z;
-
-        // Listeners
-        sliderPosX.onValueChanged.AddListener((v) => UpdatePosition());
-        sliderRotY.onValueChanged.AddListener((v) => UpdateRotation());
-        sliderScaleZ.onValueChanged.AddListener((v) => UpdateScale());
-
-        // Mostrar valores iniciales
-        LogTransform("Inicial");
-    }
-
-    void UpdatePosition()
-    {
-        Vector3 pos = father.localPosition;
-        pos.x = sliderPosX.value;
-        father.localPosition = pos;
-        LogTransform("Posición actualizada");
-    }
-
-    void UpdateRotation()
-    {
-        Vector3 rot = father.localEulerAngles;
-        rot.y = sliderRotY.value;
-        father.localEulerAngles = rot;
-        LogTransform("Rotación actualizada");
-    }
-
-    void UpdateScale()
-    {
-        Vector3 scale = father.localScale;
-        scale.z = sliderScaleZ.value;
-        father.localScale = scale;
-        LogTransform("Escala actualizada");
-    }
-
-    void LogTransform(string evento)
-    {
-        Debug.Log($"[{evento}] Pos: {father.localPosition}, Rot: {father.localEulerAngles}, Scale: {father.localScale}");
-    }
-    }
-
-### Comentarios personales sobre el aprendizaje y dificultades encontradas.
-
-Es una buena introduccion a sistemas mas complejos de jerarquía en Unity
