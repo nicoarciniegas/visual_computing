@@ -7,16 +7,17 @@ En este ejercicio se realizó un procesamiento completo de una imagen en Python 
 ### 📸 Capturas o GIFs
 
 - Imagen Original
-  <img width="342" height="247" alt="img_original" src="https://github.com/user-attachments/assets/5b70491c-5115-48a4-925e-ce286714c47d" />
+  
+    <img width="342" height="247" alt="img_original" src="https://github.com/user-attachments/assets/5b70491c-5115-48a4-925e-ce286714c47d" />
 
 - Imagen Suavizada
-  <img width="341" height="225" alt="img_suavizada" src="https://github.com/user-attachments/assets/8329bd3d-bc9a-4045-8012-fd758f81fc00" />
+    <img width="341" height="225" alt="img_suavizada" src="https://github.com/user-attachments/assets/8329bd3d-bc9a-4045-8012-fd758f81fc00" />
 
 - Imagen con bordes detectados
-  <img width="345" height="235" alt="img_bordes_detectados" src="https://github.com/user-attachments/assets/6d22dc32-2783-4a0d-a790-76fed2915059" />
+    <img width="345" height="235" alt="img_bordes_detectados" src="https://github.com/user-attachments/assets/6d22dc32-2783-4a0d-a790-76fed2915059" />
 
 - Deteccion de objetos y su respectiva etiqueta
-<img width="344" height="261" alt="img_deteccion" src="https://github.com/user-attachments/assets/8fe05be8-a2d8-434c-8750-52d5a227d5ee" />
+    <img width="344" height="261" alt="img_deteccion" src="https://github.com/user-attachments/assets/8fe05be8-a2d8-434c-8750-52d5a227d5ee" />
 
 
 ### 🎯 Codigo Relevante
